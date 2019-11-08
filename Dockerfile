@@ -1,7 +1,7 @@
 FROM catapultcx/centos:centos8
 
 LABEL maintainer="info@catapult.cx"
-LABEL org.label-schema.description="Base node v12 image"
+LABEL org.label-schema.description="Base nodejs v12 image"
 
 ARG NODE_VERSION=12.13.0
 ARG NODE_DISTRO=linux-x64
@@ -15,9 +15,9 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 8FCCA13FEF1D0C2E91008E09
     grep node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz SHASUMS256.txt.asc | sha256sum -c - && \
     mkdir -p /usr/local/lib/nodejs && \
     tar -xzf "node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz" -C /usr/local/lib/nodejs && \
-    echo "export PATH=/usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin:$PATH" >> /etc/bashrc && \
+    ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/node /usr/bin/node && \
+    ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/npm /usr/bin/npm && \
+    ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/npx /usr/bin/npx && \
     rm node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz SHASUMS256.txt.asc
 
 USER $DEFAULT_USER
-
-
