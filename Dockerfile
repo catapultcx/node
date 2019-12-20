@@ -33,4 +33,3 @@ RUN groupadd -g ${GID} ${GROUP} && \
     rm -rf /var/cache/yum
 
 USER $USER
-
