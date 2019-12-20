@@ -20,6 +20,10 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 8FCCA13FEF1D0C2E91008E09
     ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/npx /usr/bin/npx && \
     npm install -g gulp && \
     ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/gulp /usr/bin/gulp && \
-    rm node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz SHASUMS256.txt.asc
-
+    rm node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz SHASUMS256.txt.asc && \
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
+    yum install -y ./google-chrome-stable_current_*.rpm && \
+    rm -rf /tmp/* && \
+    yum clean all && \
+    rm -rf /var/cache/yum
 USER $DEFAULT_USER
