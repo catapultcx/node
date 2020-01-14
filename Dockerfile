@@ -5,10 +5,15 @@ LABEL org.label-schema.description="Base nodejs v12 image"
 
 ARG NODE_VERSION=12.7.0
 ARG NODE_DISTRO=linux-x64
-ARG DEFAULT_USER=${DEFAULT_USER}
-USER root
+ARG USER=app
+ARG GROUP=app
+ARG UID=1000
+ARG GID=1000
+ARG APP_HOME=/home/app
 
-RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 && \
+RUN groupadd -g ${GID} ${GROUP} && \
+    useradd -u ${UID} -g ${GID} -m -d ${APP_HOME} -s /bin/bash ${USER} && \
+    gpg --keyserver pool.sks-keyservers.net --recv-keys 8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 && \
     curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz -o node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz && \
     curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt.asc -o SHASUMS256.txt.asc && \
     gpg --verify SHASUMS256.txt.asc && \
@@ -26,4 +31,6 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys 8FCCA13FEF1D0C2E91008E09
     rm -rf /tmp/* && \
     yum clean all && \
     rm -rf /var/cache/yum
-USER $DEFAULT_USER
+
+USER $USER
+
