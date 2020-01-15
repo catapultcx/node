@@ -27,5 +27,7 @@ RUN groupadd -g ${GID} ${GROUP} && \
     ln -s /usr/local/lib/nodejs/node-v${NODE_VERSION}-${NODE_DISTRO}/bin/gulp /usr/bin/gulp && \
     rm node-v${NODE_VERSION}-${NODE_DISTRO}.tar.gz SHASUMS256.txt.asc
 
-USER $ARG USER=app
+ENV DEFAULT_USER=${USER}	
+USER ${USER}	
+WORKDIR ${APP_HOME}
 
