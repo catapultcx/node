@@ -32,4 +32,6 @@ RUN groupadd -g ${GID} ${GROUP} && \
     yum clean all && \
     rm -rf /var/cache/yum
 
-USER $USER
+ENV DEFAULT_USER=${USER}	
+USER ${USER}	
+WORKDIR ${APP_HOME}
