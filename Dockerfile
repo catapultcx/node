@@ -3,7 +3,7 @@ FROM catapultcx/centos:centos8
 LABEL maintainer="info@catapult.cx"
 LABEL org.label-schema.description="Base nodejs v12 image"
 
-ARG NODE_VERSION=12.14.1
+ARG NODE_VERSION=12.15.0
 ARG NODE_DISTRO=linux-x64
 ARG USER=app
 ARG GROUP=app
